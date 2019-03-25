@@ -1,0 +1,19 @@
+MANUAL
+Developed By: Hunting(Phoebe) Luo
+
+
+1)Design Choice
+In this project, the client will send requests to the server to reverse strings over the network using sockets in two stage communication process. 
+-Stage 1: Negotiation (UDP)
+  Server create UDP socket and bind on the port <n_port> (if it's in use, change to next available port). Server starts listening...
+  Client create UDP socket connect to the server using the parameters (server_addr and port printed by server). Then client will send request_code to server through UDP socket. 
+  Once the server verified the request_code it will create a new TCP socket and bind on the port. <r_port> (a random port number). Also, server send the <r_port> back to client in UDP socket. 
+  Once the client received the <r_port>, it will send confirmation(1) to client.
+  The server will check the confirmation and decide whether start listen on the TCP port.
+
+-Stage 2: Transaction (TCP)
+  Assume Acknowledge ok and server already listening on the r_port
+  Client create TCP socket and send the request<msg> from input to server.
+  Server received message and send back the reversed message through TCP socket.
+  Client received processed message and print out.
+
